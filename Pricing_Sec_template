@@ -1,0 +1,102 @@
+{% schema %}
+{
+  "name": "Pricing Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pricing_title",
+      "label": "Pricing Title",
+      "default": "Choose a Plan"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "plan_title",
+          "label": "Plan Title",
+          "default": "Basic Plan"
+        },
+        {
+          "type": "textarea",
+          "id": "plan_features",
+          "label": "Plan Features (one feature per line)",
+          "default": "Feature 1\nFeature 2\nFeature 3"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pricing Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign pricing_title = section.settings.pricing_title %}
+
+<div class="pricing-section">
+  <h2>{{ pricing_title }}</h2>
+
+  <div class="pricing-plans">
+    {% for block in section.blocks %}
+      <div class="plan">
+        <h3>{{ block.settings.plan_title }}</h3>
+        <ul class="feature-list">
+          {% assign features = block.settings.plan_features | split: '\n' %}
+          {% for feature in features %}
+            <li><img src="https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Check-icon.png?v=1714625991" alt="Checkmark" style="width: 20px; height: 20px; margin-right: 10px;"> {{ feature }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .pricing-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .pricing-section h2 {
+    margin-bottom: 30px;
+  }
+  .pricing-plans {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .plan {
+    flex: 1 1 30%;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: left;
+  }
+  .plan h3 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .feature-list img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+</style>
