@@ -1,0 +1,125 @@
+Table Section Arif
+
+{% schema %}
+{
+  "name": "Table Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_1",
+      "label": "Header 1",
+      "default": "Column 1"
+    },
+    {
+      "type": "text",
+      "id": "header_2",
+      "label": "Header 2",
+      "default": "Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_row_1",
+      "label": "Column 2 Row 1",
+      "default": "Row 1, Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_row_2",
+      "label": "Column 2 Row 2",
+      "default": "Row 2, Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_row_3",
+      "label": "Column 2 Row 3",
+      "default": "Row 3, Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_row_4",
+      "label": "Column 2 Row 4",
+      "default": "Row 4, Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_2_row_5",
+      "label": "Column 2 Row 5",
+      "default": "Row 5, Column 2"
+    },
+    {
+      "type": "text",
+      "id": "column_1_row_1",
+      "label": "Column 1 Row 1",
+      "default": "Row 1, Column 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_row_2",
+      "label": "Column 1 Row 2",
+      "default": "Row 2, Column 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_row_3",
+      "label": "Column 1 Row 3",
+      "default": "Row 3, Column 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_row_4",
+      "label": "Column 1 Row 4",
+      "default": "Row 4, Column 1"
+    },
+    {
+      "type": "text",
+      "id": "column_1_row_5",
+      "label": "Column 1 Row 5",
+      "default": "Row 5, Column 1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Table Section",
+      "category": "Content",
+      "settings": {
+        "header_1": "Column 1",
+        "header_2": "Column 2"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+
+<div class="table-section">
+  <table>
+    <thead>
+      <tr>
+        <th>{{ section.settings.header_1 }}</th>
+        <th>{{ section.settings.header_2 }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ section.settings.column_1_row_1 }}</td>
+        <td>{{ section.settings.column_2_row_1 }}</td>
+      </tr>
+      <tr>
+        <td>{{ section.settings.column_1_row_2 }}</td>
+        <td>{{ section.settings.column_2_row_2 }}</td>
+      </tr>
+      <tr>
+        <td>{{ section.settings.column_1_row_3 }}</td>
+        <td>{{ section.settings.column_2_row_3 }}</td>
+      </tr>
+      <tr>
+        <td>{{ section.settings.column_1_row_4 }}</td>
+        <td>{{ section.settings.column_2_row_4 }}</td>
+      </tr>
+      <tr>
+        <td>{{ section.settings.column_1_row_5 }}</td>
+        <td>{{ section.settings.column_2_row_5 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
