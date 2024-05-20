@@ -1,0 +1,205 @@
+{% schema %}
+{
+  "name": "Languages Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nodejs_title",
+      "label": "Title 1",
+      "default": "Node.js"
+    },
+    {
+      "type": "text",
+      "id": "nodejs_text",
+      "label": "Text 1",
+      "default": "Run Node.js with VS Code"
+    },
+    {
+      "type": "image_picker",
+      "id": "nodejs_image",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "cpp_title",
+      "label": "Title 2",
+      "default": "C++"
+    },
+    {
+      "type": "text",
+      "id": "cpp_text",
+      "label": "Text 2",
+      "default": "Run C++ Language with VS Code"
+    },
+    {
+      "type": "image_picker",
+      "id": "cpp_image",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "dotnet_title",
+      "label": "Title 3",
+      "default": ".NET"
+    },
+    {
+      "type": "text",
+      "id": "dotnet_text",
+      "label": "Text 3",
+      "default": "Run .NET with VS Code"
+    },
+    {
+      "type": "image_picker",
+      "id": "dotnet_image",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "python_title",
+      "label": "Title 4",
+      "default": "Python"
+    },
+    {
+      "type": "text",
+      "id": "python_text",
+      "label": "Text 4",
+      "default": "Run Python Language with VS Code"
+    },
+    {
+      "type": "image_picker",
+      "id": "python_image",
+      "label": "Image 4"
+    },
+    {
+      "type": "text",
+      "id": "java_title",
+      "label": "Title 5",
+      "default": "Java"
+    },
+    {
+      "type": "text",
+      "id": "java_text",
+      "label": "Text 5",
+      "default": "Run Java Language with VS Code"
+    },
+    {
+      "type": "image_picker",
+      "id": "java_image",
+      "label": "Image 5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Languages Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="main_container">
+  <div class="content_sec">
+    <div class="inner_content">
+      <div>
+        <div>
+          <div>
+            <img src="{{ section.settings.nodejs_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Node-JS.png?v=1714026797' | img_url: '520x520' }}" alt="Node JS" width="52" height="57" loading="lazy">
+          </div>
+          <div>
+            <h4>{{ section.settings.nodejs_title }}</h4>
+          </div>
+          <p>{{ section.settings.nodejs_text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner_content">
+      <div>
+        <div>
+          <div>
+            <img src="{{ section.settings.cpp_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/C.png?v=1714027455' | img_url: '520x520' }}" alt="C++" width="52" height="57" loading="lazy">
+          </div>
+          <div>
+            <h4>{{ section.settings.cpp_title }}</h4>
+          </div>
+          <p>{{ section.settings.cpp_text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner_content">
+      <div>
+        <div>
+          <div>
+            <img src="{{ section.settings.dotnet_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Net.png?v=1714027506' | img_url: '520x520' }}" alt=".NET" width="52" height="57" loading="lazy">
+          </div>
+          <div>
+            <h4>{{ section.settings.dotnet_title }}</h4>
+          </div>
+          <p>{{ section.settings.dotnet_text }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="inner_content">
+      <div>
+        <div>
+          <div>
+            <img src="{{ section.settings.python_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Pythone.png?v=1714027600' | img_url: '520x520' }}" alt="Python" width="52" height="57" loading="lazy">
+          </div>
+          <div>
+            <h4>{{ section.settings.python_title }}</h4>
+          </div>
+          <p>{{ section.settings.python_text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner_content">
+      <div>
+        <div>
+          <div>
+            <img src="{{ section.settings.java_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/JavaS.png?v=1714027720' | img_url: '520x520' }}" alt="Java" width="52" height="57" loading="lazy">
+          </div>
+          <div>
+            <h4>{{ section.settings.java_title }}</h4>
+          </div>
+          <p>{{ section.settings.java_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content_sec {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      padding: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 50px;
+      justify-content: space-between;
+  }
+  .inner_content {
+      width: 33%;
+      text-align: center;
+  }
+  .inner_content h4 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: white;
+      font-weight: 600;
+  }
+  .main_container {
+      background: #1D153B;
+      padding: 50px 0px;
+  }
+  .inner_content p {
+      color: white;
+      font-size: 17px;
+      font-family: inherit;
+      letter-spacing: 0.8px;
+  }
+</style>
