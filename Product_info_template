@@ -1,0 +1,94 @@
+{% schema %}
+{
+  "name": "Visual Studio Info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "license_title",
+      "label": "License Section Title",
+      "default": "Get Visual Studio license from us"
+    },
+    {
+      "type": "textarea",
+      "id": "license_description",
+      "label": "License Section Description",
+      "default": "First, choose the right version of Visual Studio for your needs. Whether it's the free Community version or a more advanced Professional or Enterprise version, you can get your license directly from us."
+    },
+    {
+      "type": "text",
+      "id": "install_title",
+      "label": "Install Section Title",
+      "default": "Install on Your System"
+    },
+    {
+      "type": "textarea",
+      "id": "install_description",
+      "label": "Install Section Description",
+      "default": "Once you have your license, download Visual Studio from the official website. Follow the installation guide to install it on your computer. It's straightforward and should be done in just a few clicks."
+    },
+    {
+      "type": "text",
+      "id": "run_title",
+      "label": "Run Section Title",
+      "default": "Run Visual Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "run_description",
+      "label": "Run Section Description",
+      "default": "After installation, open Visual Studio on your system. You might need to sign in with your Microsoft account to activate your license. Then, you're all set to start creating your projects and coding!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Started"
+    },
+    {
+      "type": "text",
+      "id": "image_src",
+      "label": "Image Source",
+      "default": "https://example.com/default-image.jpg"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Custom sections",
+      "name": "Visual Studio Info",
+      "settings": {
+        "license_title": "Get Visual Studio license from us",
+        "license_description": "First, choose the right version of Visual Studio for your needs. Whether it's the free Community version or a more advanced Professional or Enterprise version, you can get your license directly from us.",
+        "install_title": "Install on Your System",
+        "install_description": "Once you have your license, download Visual Studio from the official website. Follow the installation guide to install it on your computer. It's straightforward and should be done in just a few clicks.",
+        "run_title": "Run Visual Studio",
+        "run_description": "After installation, open Visual Studio on your system. You might need to sign in with your Microsoft account to activate your license. Then, you're all set to start creating your projects and coding!"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<div class="main_sec">
+  <div class="content_section">
+    <div class="contn_aria">
+      <div class="license-section">
+        <h3>{{ section.settings.license_title }}</h3>
+        <p>{{ section.settings.license_description }}</p>
+        <button><a href="#">{{ section.settings.button_text }}</a></button>
+      </div>
+      <div class="install-section">
+        <h3>{{ section.settings.install_title }}</h3>
+        <p>{{ section.settings.install_description }}</p>
+        <button><a href="#">{{ section.settings.button_text }}</a></button>
+      </div>
+      <div class="run-section">
+        <h3>{{ section.settings.run_title }}</h3>
+        <p>{{ section.settings.run_description }}</p>
+        <button><a href="#">{{ section.settings.button_text }}</a></button>
+      </div>
+    </div>
+  </div>
+  <div class="img_sec">
+    <img src="{{ section.settings.image_src }}" alt="{{ section.settings.image_alt }}" width="{{ section.settings.image_width }}" height="{{ section.settings.image_height }}">
+  </div>
+</div>
