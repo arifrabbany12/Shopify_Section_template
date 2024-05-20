@@ -1,0 +1,168 @@
+<!-- custom-main-sec.liquid -->
+{% schema %}
+{
+  "name": "Main Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "number",
+      "id": "main_image_width",
+      "label": "Main Image Width (px)",
+      "default": 526
+    },
+    {
+      "type": "number",
+      "id": "main_image_height",
+      "label": "Main Image Height (px)",
+      "default": 464
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Finding and Fixing Mistakes (Debugging) in Visual Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Visual Studio provides integrated tools for debugging and diagnosing issues within applications. It allows developers to step through code, inspect variables, set watches, and understand the execution path."
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "Icon Image"
+    },
+    {
+      "type": "number",
+      "id": "icon_image_width",
+      "label": "Icon Image Width (px)",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "icon_image_height",
+      "label": "Icon Image Height (px)",
+      "default": 50
+    },
+    {
+      "type": "image_picker",
+      "id": "check_icon",
+      "label": "Check Icon Image"
+    },
+    {
+      "type": "number",
+      "id": "check_icon_width",
+      "label": "Check Icon Width (px)",
+      "default": 25
+    },
+    {
+      "type": "number",
+      "id": "check_icon_height",
+      "label": "Check Icon Height (px)",
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "check_text_1",
+      "label": "Check Text 1",
+      "default": "Steps through code to find where errors are."
+    },
+    {
+      "type": "text",
+      "id": "check_text_2",
+      "label": "Check Text 2",
+      "default": "Lets you inspect values and variables to see what’s wrong."
+    },
+    {
+      "type": "text",
+      "id": "check_text_3",
+      "label": "Check Text 3",
+      "default": "Improves your app's quality by fixing bugs efficiently."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="main_sec">
+  <div class="img_sec">
+    <figure>
+      {% if section.settings.main_image %}
+        <img src="{{ section.settings.main_image | image_url }}" alt="{{ section.settings.heading }}" width="{{ section.settings.main_image_width }}" height="{{ section.settings.main_image_height }}" loading="lazy">
+      {% endif %}
+    </figure>
+  </div>
+  <div class="content_section">
+    <div class="conten_aria">
+      {% if section.settings.icon_image %}
+        <img src="{{ section.settings.icon_image | image_url }}" alt="Icon" width="{{ section.settings.icon_image_width }}" height="{{ section.settings.icon_image_height }}">
+      {% endif %}
+      <h4>{{ section.settings.heading }}</h4>
+      <p>{{ section.settings.description }}</p>
+      <div class="icn_list">
+        <div class="icn_part">
+          {% if section.settings.check_icon %}
+            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
+          {% endif %}
+          <span>{{ section.settings.check_text_1 }}</span>
+        </div>
+        <div class="icn_part">
+          {% if section.settings.check_icon %}
+            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
+          {% endif %}
+          <span>{{ section.settings.check_text_2 }}</span>
+        </div>
+        <div class="icn_part">
+          {% if section.settings.check_icon %}
+            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
+          {% endif %}
+          <span>{{ section.settings.check_text_3 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.main_sec {
+  display: flex;
+  flex-direction: row;
+}
+
+.img_sec {
+  flex: 1;
+}
+
+.content_section {
+  flex: 1;
+}
+
+.conten_aria {
+  padding: 20px;
+}
+
+.icn_list {
+  display: flex;
+  flex-direction: column;
+}
+
+.icn_part {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.icn_part img {
+  margin-right: 10px;
+}
+</style>
