@@ -1,0 +1,113 @@
+<!-- sections/testimonial-slider.liquid -->
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+
+<div class="testimonial-slider-container">
+  <img src="{{ section.settings.testi_image | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/C.png?v=1714027455' | img_url: '520x520' }}" alt="Testimonial Image" width="52" height="57" loading="lazy">
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <p>{{ block.settings.quote }}</p>
+          <img src="{{ block.settings.testi_image1 | default: 'https://cdn.shopify.com/s/files/1/0598/7726/1402/files/C.png?v=1714027455' | img_url: '520x520' }}" alt="Testimonial Image" width="52" height="57" loading="lazy">
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<style>
+  .testimonial-slider-container {
+    text-align: center;
+    padding: 3rem;
+  }
+  .swiper-slide p {
+    margin: 0;
+    text-align: center;
+  }
+  .swiper-pagination {
+    bottom: 10px;
+  }
+</style>
+
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiperEl = document.querySelector('.swiper-container');
+    new Swiper(swiperEl, {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      autoplay: {
+        delay: 6000,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      speed: 1000,
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial Slider",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "testi_image",
+      "label": "Section Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Review Quote",
+          "info": "Enter the review quote here."
+        },
+        {
+          "type": "image_picker",
+          "id": "testi_image1",
+          "label": "Block Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Testimonials",
+      "name": "Testimonial Slider",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "<p>\"This is an amazing product. I highly recommend it to everyone.\"<br><em>- Customer Name</em></p>"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "<p>\"Great quality and excellent customer service.\"<br><em>- Another Customer</em></p>"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "<p>\"I love this product! It has made my life so much easier.\"<br><em>- Happy Customer</em></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
