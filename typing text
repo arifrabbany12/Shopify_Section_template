@@ -1,0 +1,120 @@
+{% schema %}
+{
+  "name": "Typing Animation Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "static_text",
+      "label": "Static Text",
+      "default": "Welcome to our website"
+    },
+    {
+      "type": "text",
+      "id": "typing_text",
+      "label": "Typing Text",
+      "default": "This is a typing demo."
+    },
+    {
+      "type": "range",
+      "id": "typing_duration",
+      "label": "Typing Duration (seconds)",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "cursor_color",
+      "label": "Cursor Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+    .typing-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0 20px; /* Optional: Add some padding for better appearance on smaller screens */
+    }
+
+  .typing-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: fit-content;
+      max-width: 1200px;
+      text-align: center;
+  }
+    .static-text {
+        font-size: 2em;
+        font-family: monospace;
+        color: #333;
+        margin-right: 10px;
+        white-space: nowrap; /* Ensure no wrapping */
+    }
+
+    .typing-demo {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid {{ section.settings.cursor_color }};
+        font-family: monospace;
+        font-size: 2em;
+        animation: typing {{ section.settings.typing_duration }}s steps(22) infinite, blink 0.75s step-end infinite;
+        color: #000;
+        width: 0; /* Start with zero width */
+        max-width: 100%;
+    }
+
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 100%;
+        }
+    }
+
+    @keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
+</style>
+
+<div class="typing-wrapper">
+  <div class="typing-content">
+    <div class="static-text">{{ section.settings.static_text }}</div>
+    <div class="typing-demo" id="typing-text">
+      {{ section.settings.typing_text }}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const typingElement = document.getElementById('typing-text');
+      const text = "{{ section.settings.typing_text }}";
+      const typingDuration = {{ section.settings.typing_duration }} * 1000;
+      
+      function startTyping() {
+          // Reset width before animation starts
+          typingElement.style.width = '0';
+          // Dynamically adjust the width based on text length
+          typingElement.style.animation = `typing ${typingDuration / 1000}s steps(${text.length}) infinite, blink 0.75s step-end infinite`;
+      }
+
+      startTyping();
+  });
+</script>
