@@ -1,0 +1,124 @@
+<!-- Create the section file as 'custom-typewriter.liquid' in the Sections directory -->
+
+{% schema %}
+{
+  "name": "Custom Typewriter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "static_text",
+      "label": "Static Text",
+      "default": "Hello, welcome to our site!"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Typewriter Text",
+      "default": "Hi, I'm Ramzan.|I am Creative.|I Love Design.|I Love to Develop."
+    },
+    {
+      "type": "color",
+      "id": "colorBackground",
+      "label": "Background Color",
+      "default": "#0070c0"
+    },
+    {
+      "type": "color",
+      "id": "colorText",
+      "label": "Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Vertical Padding",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "textsize",
+      "label": "Text Size",
+      "min": 10,
+      "max": 72,
+      "step": 1,
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Style",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .custom-typewriter-section {
+    text-align: center;
+    background: {{ section.settings.colorBackground }};
+    padding: {{ section.settings.spacing }}px 0;
+    color: {{ section.settings.colorText }};
+    font-size: {{ section.settings.textsize }}px;
+  }
+  @media only screen and (max-width: 800px) {
+    .custom-typewriter-section {
+      font-size: calc({{ section.settings.textsize }}px / 2);
+    }
+  }
+</style>
+
+<div class="custom-typewriter-section">
+  <span>{{ section.settings.static_text }}</span>
+  <span class="typewrite" data-type="{{ section.settings.text }}" data-period="2000">
+    <span class="wrap"></span>
+  </span>
+</div>
+
+<script>
+  var TxtType = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = '';
+    this.isDeleting = false;
+    this.tick();
+  };
+
+  TxtType.prototype.tick = function() {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+    if (this.isDeleting) {
+      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+    var delta = 200 - Math.random() * 100;
+    if (this.isDeleting) { delta /= 2; }
+    if (!this.isDeleting && this.txt === fullTxt) {
+      delta = this.period;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+      this.isDeleting = false;
+      this.loopNum++;
+      delta = 500;
+    }
+    setTimeout(() => { this.tick(); }, delta);
+  };
+
+  window.onload = function() {
+    var elements = document.getElementsByClassName('typewrite');
+    for (var i = 0; i < elements.length; i++) {
+      var toRotate = elements[i].getAttribute('data-type').split('|');
+      var period = elements[i].getAttribute('data-period');
+      if (toRotate) {
+        new TxtType(elements[i], toRotate, period);
+      }
+    }
+  };
+</script>
