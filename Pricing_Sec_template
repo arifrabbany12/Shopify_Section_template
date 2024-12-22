@@ -7,6 +7,26 @@
       "id": "pricing_title",
       "label": "Pricing Title",
       "default": "Choose a Plan"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size (px)",
+      "min": 12,
+      "max": 50,
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "font_family",
+      "label": "Font Family",
+      "default": "Arial, sans-serif"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font Color",
+      "default": "#000000"
     }
   ],
   "blocks": [
@@ -21,10 +41,40 @@
           "default": "Basic Plan"
         },
         {
-          "type": "textarea",
-          "id": "plan_features",
-          "label": "Plan Features (one feature per line)",
-          "default": "Feature 1\nFeature 2\nFeature 3"
+          "type": "text",
+          "id": "plan_subtitle",
+          "label": "Plan Subtitle",
+          "default": "Perfect for individuals"
+        },
+        {
+          "type": "text",
+          "id": "buy_now_text",
+          "label": "Buy Now Button Text",
+          "default": "Buy Now"
+        },
+        {
+          "type": "text",
+          "id": "buy_now_url",
+          "label": "Buy Now Button URL",
+          "default": "#"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_text",
+          "label": "Feature Text",
+          "default": "Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "feature_icon",
+          "label": "Feature Icon URL",
+          "default": "https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Check-icon.png?v=1714625991"
         }
       ]
     }
@@ -39,22 +89,44 @@
 {% endschema %}
 
 {% assign pricing_title = section.settings.pricing_title %}
+{% assign font_size = section.settings.font_size %}
+{% assign font_family = section.settings.font_family %}
+{% assign font_color = section.settings.font_color %}
 
 <div class="pricing-section">
-  <h2>{{ pricing_title }}</h2>
+  <h2 style="font-size: {{ font_size }}px; font-family: {{ font_family }}; color: {{ font_color }};">{{ pricing_title }}</h2>
 
   <div class="pricing-plans">
+    {% assign current_plan = null %}
+
     {% for block in section.blocks %}
-      <div class="plan">
-        <h3>{{ block.settings.plan_title }}</h3>
-        <ul class="feature-list">
-          {% assign features = block.settings.plan_features | split: '\n' %}
-          {% for feature in features %}
-            <li><img src="https://cdn.shopify.com/s/files/1/0598/7726/1402/files/Check-icon.png?v=1714625991" alt="Checkmark" style="width: 20px; height: 20px; margin-right: 10px;"> {{ feature }}</li>
-          {% endfor %}
-        </ul>
-      </div>
+      {% if block.type == 'plan' %}
+        {% if current_plan %}
+          </ul>
+          <a href="{{ current_plan_buy_now_url }}" class="buy-now-button">{{ current_plan_buy_now_text }}</a>
+        </div>
+        {% endif %}
+
+        {% assign current_plan_buy_now_url = block.settings.buy_now_url %}
+        {% assign current_plan_buy_now_text = block.settings.buy_now_text %}
+        <div class="plan">
+          <h3>{{ block.settings.plan_title }}</h3>
+          <h4>{{ block.settings.plan_subtitle }}</h4>
+          <ul class="feature-list">
+          {% assign current_plan = block.id %}
+      {% elsif block.type == 'feature' and current_plan %}
+        <li>
+          <img src="{{ block.settings.feature_icon }}" alt="Feature Icon" style="width: 20px; height: 20px; margin-right: 10px;">
+          <span>{{ block.settings.feature_text }}</span>
+        </li>
+      {% endif %}
     {% endfor %}
+
+    {% if current_plan %}
+      </ul>
+      <a href="{{ current_plan_buy_now_url }}" class="buy-now-button">{{ current_plan_buy_now_text }}</a>
+    </div>
+    {% endif %}
   </div>
 </div>
 
@@ -78,25 +150,47 @@
     border: 1px solid #ddd;
     margin: 10px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
   }
   .plan h3 {
     text-align: center;
+    margin-bottom: 5px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .plan h4 {
+    text-align: center;
     margin-bottom: 15px;
+    font-size: 18px;
+    color: #666;
   }
   .feature-list {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
   .feature-list li {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
+
   .feature-list img {
-    width: 20px;
-    height: 20px;
+    flex-shrink: 0;
     margin-right: 10px;
+  }
+  .buy-now-button {
+    display: block;
+    text-align: center;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .buy-now-button:hover {
+    background-color: #0056b3;
   }
 </style>
