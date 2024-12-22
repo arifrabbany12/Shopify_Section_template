@@ -168,7 +168,7 @@
             }
 
             .image_testi_sec figure {
-              margin:-20px;
+              margin:-30px;
             text-align: center;
               padding-top:30px;
             }
