@@ -1,7 +1,7 @@
 <!-- custom-main-sec.liquid -->
 {% schema %}
 {
-  "name": "Main Section",
+  "name": "half img+text section",
   "settings": [
     {
       "type": "image_picker",
@@ -50,51 +50,59 @@
       "default": 50
     },
     {
-      "type": "image_picker",
-      "id": "check_icon",
-      "label": "Check Icon Image"
+      "type": "number",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "default": 20
     },
     {
       "type": "number",
-      "id": "check_icon_width",
-      "label": "Check Icon Width (px)",
-      "default": 25
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "default": 20
     },
     {
       "type": "number",
-      "id": "check_icon_height",
-      "label": "Check Icon Height (px)",
-      "default": 25
+      "id": "padding_left",
+      "label": "Padding Left (px)",
+      "default": 20
     },
     {
-      "type": "text",
-      "id": "check_text_1",
-      "label": "Check Text 1",
-      "default": "Steps through code to find where errors are."
-    },
+      "type": "number",
+      "id": "padding_right",
+      "label": "Padding Right (px)",
+      "default": 20
+    }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "check_text_2",
-      "label": "Check Text 2",
-      "default": "Lets you inspect values and variables to see what’s wrong."
-    },
-    {
-      "type": "text",
-      "id": "check_text_3",
-      "label": "Check Text 3",
-      "default": "Improves your app's quality by fixing bugs efficiently."
+      "type": "check_item",
+      "name": "Checklist Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "check_icon",
+          "label": "Check Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "check_text",
+          "label": "Check Text",
+          "default": "Default checklist item text."
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Main Section",
+      "name": "half image with text section",
       "category": "Custom"
     }
   ]
 }
 {% endschema %}
 
-<div class="main_sec">
+<div class="main_sec" style="padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;">
   <div class="img_sec">
     <figure>
       {% if section.settings.main_image %}
@@ -103,31 +111,21 @@
     </figure>
   </div>
   <div class="content_section">
-    <div class="conten_aria">
+    <div class="conten_aria" style="padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;">
       {% if section.settings.icon_image %}
         <img src="{{ section.settings.icon_image | image_url }}" alt="Icon" width="{{ section.settings.icon_image_width }}" height="{{ section.settings.icon_image_height }}">
       {% endif %}
-      <h4>{{ section.settings.heading }}</h4>
+      <h2>{{ section.settings.heading }}</h2>
       <p>{{ section.settings.description }}</p>
       <div class="icn_list">
-        <div class="icn_part">
-          {% if section.settings.check_icon %}
-            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
-          {% endif %}
-          <span>{{ section.settings.check_text_1 }}</span>
-        </div>
-        <div class="icn_part">
-          {% if section.settings.check_icon %}
-            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
-          {% endif %}
-          <span>{{ section.settings.check_text_2 }}</span>
-        </div>
-        <div class="icn_part">
-          {% if section.settings.check_icon %}
-            <img src="{{ section.settings.check_icon | image_url }}" width="{{ section.settings.check_icon_width }}" height="{{ section.settings.check_icon_height }}" loading="lazy" alt="Check Icon">
-          {% endif %}
-          <span>{{ section.settings.check_text_3 }}</span>
-        </div>
+        {% for block in section.blocks %}
+          <div class="icn_part">
+            {% if block.settings.check_icon %}
+              <img src="{{ block.settings.check_icon | image_url }}" width="{{ section.settings.icon_image_width }}" height="{{ section.settings.icon_image_height }}" loading="lazy" alt="Check Icon">
+            {% endif %}
+            <span>{{ block.settings.check_text }}</span>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -137,6 +135,9 @@
 .main_sec {
   display: flex;
   flex-direction: row;
+  width: 1300px;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .img_sec {
@@ -145,10 +146,6 @@
 
 .content_section {
   flex: 1;
-}
-
-.conten_aria {
-  padding: 20px;
 }
 
 .icn_list {
@@ -163,6 +160,14 @@
 }
 
 .icn_part img {
+  width: 20px;
+  height: 20px;
   margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .main_sec {
+    flex-direction: column;
+  }
 }
 </style>
