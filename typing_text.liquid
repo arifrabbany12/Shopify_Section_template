@@ -1,124 +1,282 @@
-<!-- Create the section file as 'custom-typewriter.liquid' in the Sections directory -->
-
 {% schema %}
 {
-  "name": "Custom Typewriter",
+  "name": "Dynamic Typing Section",
   "settings": [
     {
       "type": "text",
-      "id": "static_text",
-      "label": "Static Text",
-      "default": "Hello, welcome to our site!"
+      "id": "prefix_text",
+      "label": "Prefix Text",
+      "default": "the feeling of"
     },
     {
       "type": "text",
-      "id": "text",
-      "label": "Typewriter Text",
-      "default": "Hi, I'm Ramzan.|I am Creative.|I Love Design.|I Love to Develop."
+      "id": "text_1",
+      "label": "First Text",
+      "default": "Fun"
     },
     {
       "type": "color",
-      "id": "colorBackground",
+      "id": "color_1",
+      "label": "First Text Color",
+      "default": "#00bdff"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Second Text",
+      "default": "Love"
+    },
+    {
+      "type": "color",
+      "id": "color_2",
+      "label": "Second Text Color",
+      "default": "#ff00a1"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Third Text",
+      "default": "Life"
+    },
+    {
+      "type": "color",
+      "id": "color_3",
+      "label": "Third Text Color",
+      "default": "#ffb300"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Fourth Text",
+      "default": "Addiction"
+    },
+    {
+      "type": "color",
+      "id": "color_4",
+      "label": "Fourth Text Color",
+      "default": "#8aff00"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
       "label": "Background Color",
-      "default": "#0070c0"
-    },
-    {
-      "type": "color",
-      "id": "colorText",
-      "label": "Text Color",
-      "default": "#fff"
+      "default": "#111111"
     },
     {
       "type": "range",
-      "id": "spacing",
-      "label": "Vertical Padding",
-      "min": 10,
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
       "max": 100,
-      "step": 1,
-      "default": 20
+      "default": 20,
+      "unit": "px"
     },
     {
       "type": "range",
-      "id": "textsize",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding Left",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding Right",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_size",
       "label": "Text Size",
       "min": 10,
-      "max": 72,
-      "step": 1,
-      "default": 24
+      "max": 100,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font Family",
+      "default": "'Playfair Display', serif",
+      "options": [
+        {
+          "value": "'Playfair Display', serif",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "'Arial', sans-serif",
+          "label": "Arial"
+        },
+        {
+          "value": "'Times New Roman', serif",
+          "label": "Times New Roman"
+        },
+        {
+          "value": "'Courier New', monospace",
+          "label": "Courier New"
+        },
+        {
+          "value": "'Roboto', sans-serif",
+          "label": "Roboto"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Default Style",
-      "category": "Text"
+      "name": "Dynamic Typing Section",
+      "category": "Custom"
     }
   ]
 }
 {% endschema %}
 
+<div
+  class="wrapper"
+  style="
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_left }}px;
+    padding-right: {{ section.settings.padding_right }}px;
+    text-align: {{ section.settings.text_align }};
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.font_family }};
+  "
+>
+  <h1 class="effect-wrapper">
+    <span id="prefix">{{ section.settings.prefix_text }}</span> <span id="typed"></span
+    ><span class="cursor">&nbsp;</span>
+  </h1>
+</div>
+
 <style>
-  .custom-typewriter-section {
-    text-align: center;
-    background: {{ section.settings.colorBackground }};
-    padding: {{ section.settings.spacing }}px 0;
-    color: {{ section.settings.colorText }};
-    font-size: {{ section.settings.textsize }}px;
+  .effect-wrapper {
+    font-weight: normal;
   }
-  @media only screen and (max-width: 800px) {
-    .custom-typewriter-section {
-      font-size: calc({{ section.settings.textsize }}px / 2);
+  h1.effect-wrapper {
+    margin-bottom: 0;
+  }
+
+  #prefix {
+    font-weight: normal;
+    color: #ffffff;
+  }
+
+  #typed {
+    font-weight: bold;
+  }
+
+  .cursor {
+    display: inline-block;
+    animation: blinker 800ms infinite;
+    width: 10px;
+    height: 45px;
+    vertical-align: bottom;
+  }
+
+  .cursor.typing-true {
+    animation: none;
+  }
+
+  @keyframes blinker {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    h1.effect-wrapper span#prefix {
+      font-size: 30px;
     }
   }
 </style>
 
-<div class="custom-typewriter-section">
-  <span>{{ section.settings.static_text }}</span>
-  <span class="typewrite" data-type="{{ section.settings.text }}" data-period="2000">
-    <span class="wrap"></span>
-  </span>
-</div>
-
 <script>
-  var TxtType = function(el, toRotate, period) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = parseInt(period, 10) || 2000;
-    this.txt = '';
-    this.isDeleting = false;
-    this.tick();
-  };
+  document.addEventListener("DOMContentLoaded", function () {
+    const typedSpan = document.getElementById("typed");
+    const cursorSpan = document.querySelector(".cursor");
 
-  TxtType.prototype.tick = function() {
-    var i = this.loopNum % this.toRotate.length;
-    var fullTxt = this.toRotate[i];
-    if (this.isDeleting) {
-      this.txt = fullTxt.substring(0, this.txt.length - 1);
-    } else {
-      this.txt = fullTxt.substring(0, this.txt.length + 1);
-    }
-    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
-    var delta = 200 - Math.random() * 100;
-    if (this.isDeleting) { delta /= 2; }
-    if (!this.isDeleting && this.txt === fullTxt) {
-      delta = this.period;
-      this.isDeleting = true;
-    } else if (this.isDeleting && this.txt === '') {
-      this.isDeleting = false;
-      this.loopNum++;
-      delta = 500;
-    }
-    setTimeout(() => { this.tick(); }, delta);
-  };
+    const textsToType = [
+      "{{ section.settings.text_1 }}",
+      "{{ section.settings.text_2 }}",
+      "{{ section.settings.text_3 }}",
+      "{{ section.settings.text_4 }}"
+    ];
 
-  window.onload = function() {
-    var elements = document.getElementsByClassName('typewrite');
-    for (var i = 0; i < elements.length; i++) {
-      var toRotate = elements[i].getAttribute('data-type').split('|');
-      var period = elements[i].getAttribute('data-period');
-      if (toRotate) {
-        new TxtType(elements[i], toRotate, period);
+    const colors = [
+      "{{ section.settings.color_1 }}",
+      "{{ section.settings.color_2 }}",
+      "{{ section.settings.color_3 }}",
+      "{{ section.settings.color_4 }}"
+    ];
+
+    const typingSpeed = 80;
+    const delayBetweenWords = 1500;
+
+    let textIndex = 0;
+    let charIndex = 0;
+
+    function typeText() {
+      cursorSpan.style.display = "inline-block"; // Keep cursor visible
+
+      if (charIndex < textsToType[textIndex].length) {
+        typedSpan.textContent += textsToType[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeText, typingSpeed);
+      } else {
+        textIndex++;
+        if (textIndex >= textsToType.length) {
+          textIndex = 0;
+        }
+        charIndex = 0;
+        typedSpan.style.color = colors[textIndex];
+        cursorSpan.style.backgroundColor = colors[textIndex]; // Change cursor color
+        setTimeout(() => {
+          typedSpan.textContent = "";
+          typeText();
+        }, delayBetweenWords);
       }
     }
-  };
+
+    // Initial color setup
+    typedSpan.style.color = colors[textIndex];
+    cursorSpan.style.backgroundColor = colors[textIndex];
+
+    typeText();
+  });
 </script>
